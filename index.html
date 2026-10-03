@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moda Urbana | Tienda de Ropa</title>
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9f9;
+            color: #1e1e1e;
+            line-height: 1.5;
+        }
+
+        /* Contenedor general */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 0.8rem 0;
+        }
+
+        .header-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: #1e1e1e;
+        }
+
+        .logo span {
+            color: #e63946;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-weight: 500;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2b2b2b;
+            transition: color 0.2s;
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover {
+            color: #e63946;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 1.3rem;
+            color: #2b2b2b;
+        }
+
+        .header-icons i {
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .header-icons i:hover {
+            color: #e63946;
+        }
+
+        /* Menú hamburguesa (oculto en escritorio) */
+        .menu-toggle {
+            display: none;
+            font-size: 1.6rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #1e1e1e;
+        }
+
+        /* ===== SLIDER / BANNERS ===== */
+        .slider-section {
+            margin: 2rem 0 3rem;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.15);
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            aspect-ratio: 16 / 7;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Fondos de ejemplo (imágenes de moda) */
+        .slide-1 {
+            background-image: linear-gradient(135deg, rgba(0,0,0,0.35), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop');
+        }
+
+        .slide-2 {
+            background-image: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2070&auto=format&fit=crop');
+        }
+
+        .slide-3 {
+            background-image: linear-gradient(135deg, rgba(0,0,0,0.35), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1479064555552-3ef4979f8908?q=80&w=2070&auto=format&fit=crop');
+        }
+
+        .slide-content {
+            max-width: 700px;
+            padding: 2rem;
+            z-index: 2;
+        }
+
+        .slide-content h2 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 0.8rem;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .slide-content p {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+
+        .btn-slider {
+            display: inline-block;
+            background-color: #ffffff;
+            color: #1e1e1e;
+            font-weight: 600;
+            padding: 1rem 2.5rem;
+            border-radius: 40px;
+            text-decoration: none;
+            transition: all 0.25s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border: 2px solid transparent;
+            font-size: 1rem;
+        }
+
+        .btn-slider:hover {
+            background-color: #e63946;
+            color: white;
+            transform: scale(1.03);
+            box-shadow: 0 12px 24px rgba(230, 57, 70, 0.4);
+        }
+
+        /* Flechas de navegación */
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255,255,255,0.25);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.2s;
+        }
+
+        .slider-btn:hover {
+            background-color: rgba(255,255,255,0.5);
+            color: #1e1e1e;
+        }
+
+        .prev {
+            left: 20px;
+        }
+
+        .next {
+            right: 20px;
+        }
+
+        /* Indicadores (puntos) */
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.5);
+            border: 1px solid rgba(255,255,255,0.8);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .dot.active {
+            background-color: #ffffff;
+            transform: scale(1.2);
+            box-shadow: 0 0 10px rgba(255,255,255,0.8);
+        }
+
+        /* ===== SECCIÓN PRODUCTOS ===== */
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin: 3rem 0 1.5rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .section-title h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title a {
+            color: #e63946;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: gap 0.2s;
+        }
+
+        .section-title a:hover {
+            gap: 0.8rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+            transition: transform 0.25s, box-shadow 0.25s;
+            border: 1px solid #f0f0f0;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-img {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            background-color: #f2f2f2;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        /* imágenes de productos */
+        .img-1 { background-image: url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=1770&auto=format&fit=crop'); }
+        .img-2 { background-image: url('https://images.unsplash.com/photo-1539533018447-63fcce2678e3?q=80&w=1770&auto=format&fit=crop'); }
+        .img-3 { background-image: url('https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=1770&auto=format&fit=crop'); }
+        .img-4 { background-image: url('https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?q=80&w=1770&auto=format&fit=crop'); }
+
+        .product-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background-color: #e63946;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.3rem 0.9rem;
+            border-radius: 30px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .product-info {
+            padding: 1.2rem 1rem 1.5rem;
+        }
+
+        .product-info h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .product-category {
+            font-size: 0.85rem;
+            color: #7a7a7a;
+            margin-bottom: 0.6rem;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-weight: 600;
+        }
+
+        .current-price {
+            font-size: 1.2rem;
+            color: #1e1e1e;
+        }
+
+        .old-price {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+            text-decoration: line-through;
+        }
+
+        .add-btn {
+            margin-top: 1rem;
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #1e1e1e;
+            color: white;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .add-btn:hover {
+            background-color: #e63946;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: #111;
+            color: #ddd;
+            padding: 3rem 0 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .footer-col h5 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 1.3rem;
+            font-weight: 600;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-col a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .footer-col a:hover {
+            color: white;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            font-size: 1.4rem;
+            margin-top: 0.5rem;
+        }
+
+        .social-icons a {
+            color: #bbb;
+        }
+
+        .social-icons a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid #222;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .header-flex {
+                position: relative;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 1rem;
+                background-color: white;
+                padding: 1.5rem 1rem;
+                border-radius: 20px;
+                box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+                margin-top: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .header-icons {
+                margin-left: auto;
+                margin-right: 1rem;
+            }
+
+            .slider-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .prev { left: 10px; }
+            .next { right: 10px; }
+
+            .slide {
+                aspect-ratio: 4 / 5;
+            }
+
+            .slide-content h2 {
+                font-size: 2rem;
+            }
+
+            .section-title h3 {
+                font-size: 1.6rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+                gap: 1.2rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .slider-container {
+                border-radius: 20px;
+            }
+
+            .slide {
+                aspect-ratio: 3 / 4;
+            }
+
+            .slide-content p {
+                font-size: 0.95rem;
+            }
+
+            .btn-slider {
+                padding: 0.8rem 1.8rem;
+                font-size: 0.9rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+
+            .product-info {
+                padding: 1rem 0.8rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-flex">
+            <div class="logo">MODA<span>URBANA</span></div>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menú">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-links" id="navLinks">
+                <a href="#">Inicio</a>
+                <a href="#">Mujer</a>
+                <a href="#">Hombre</a>
+                <a href="#">Accesorios</a>
+                <a href="#">Ofertas</a>
+            </nav>
+            <div class="header-icons">
+                <i class="fas fa-search"></i>
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-shopping-bag"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- SLIDER DE BANNERS -->
+        <section class="slider-section container">
+            <div class="slider-container" id="sliderContainer">
+                <div class="slides" id="slides">
+                    <!-- Slide 1 -->
+                    <div class="slide slide-1">
+                        <div class="slide-content">
+                            <h2>Nueva Colección</h2>
+                            <p>Descubre las tendencias de esta temporada con envío gratis</p>
+                            <a href="#" class="btn-slider">Comprar ahora</a>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="slide slide-2">
+                        <div class="slide-content">
+                            <h2>Hasta 40% OFF</h2>
+                            <p>En prendas seleccionadas de mujer y hombre</p>
+                            <a href="#" class="btn-slider">Ver ofertas</a>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="slide slide-3">
+                        <div class="slide-content">
+                            <h2>Envío gratis</h2>
+                            <p>En compras superiores a $50. Exclusivo online</p>
+                            <a href="#" class="btn-slider">Aprovechar</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Botones -->
+                <button class="slider-btn prev" id="prevBtn" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-btn next" id="nextBtn" aria-label="Siguiente"><i class="fas fa-chevron-right"></i></button>
+                <!-- Dots -->
+                <div class="slider-dots" id="sliderDots"></div>
+            </div>
+        </section>
+
+        <!-- PRODUCTOS DESTACADOS -->
+        <section class="container">
+            <div class="section-title">
+                <h3>Lo más vendido</h3>
+                <a href="#">Ver todo <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="product-grid">
+                <!-- Producto 1 -->
+                <article class="product-card">
+                    <div class="product-img img-1">
+                        <span class="product-tag">Nuevo</span>
+                    </div>
+                    <div class="product-info">
+                        <h4>Chaqueta de mezclilla</h4>
+                        <p class="product-category">Abrigos / Mujer</p>
+                        <div class="product-price">
+                            <span class="current-price">$89.99</span>
+                            <span class="old-price">$119.99</span>
+                        </div>
+                        <button class="add-btn"><i class="fas fa-shopping-cart"></i> Añadir al carrito</button>
+                    </div>
+                </article>
+                <!-- Producto 2 -->
+                <article class="product-card">
+                    <div class="product-img img-2">
+                        <span class="product-tag">-30%</span>
+                    </div>
+                    <div class="product-info">
+                        <h4>Camiseta oversize</h4>
+                        <p class="product-category">Camisetas / Hombre</p>
+                        <div class="product-price">
+                            <span class="current-price">$24.99</span>
+                            <span class="old-price">$35.99</span>
+                        </div>
+                        <button class="add-btn"><i class="fas fa-shopping-cart"></i> Añadir al carrito</button>
+                    </div>
+                </article>
+                <!-- Producto 3 -->
+                <article class="product-card">
+                    <div class="product-img img-3">
+                        <span class="product-tag">Top</span>
+                    </div>
+                    <div class="product-info">
+                        <h4>Pantalón cargo</h4>
+                        <p class="product-category">Pantalones / Unisex</p>
+                        <div class="product-price">
+                            <span class="current-price">$59.99</span>
+                            <span class="old-price">$79.99</span>
+                        </div>
+                        <button class="add-btn"><i class="fas fa-shopping-cart"></i> Añadir al carrito</button>
+                    </div>
+                </article>
+                <!-- Producto 4 -->
+                <article class="product-card">
+                    <div class="product-img img-4">
+                        <span class="product-tag">Nuevo</span>
+                    </div>
+                    <div class="product-info">
+                        <h4>Vestido floral</h4>
+                        <p class="product-category">Vestidos / Mujer</p>
+                        <div class="product-price">
+                            <span class="current-price">$69.99</span>
+                            <span class="old-price">$99.99</span>
+                        </div>
+                        <button class="add-btn"><i class="fas fa-shopping-cart"></i> Añadir al carrito</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h5>MODAURBANA</h5>
+                    <ul>
+                        <li><a href="#">Sobre nosotros</a></li>
+                        <li><a href="#">Sostenibilidad</a></li>
+                        <li><a href="#">Tiendas</a></li>
+                        <li><a href="#">Trabaja con nosotros</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Ayuda</h5>
+                    <ul>
+                        <li><a href="#">Envíos y devoluciones</a></li>
+                        <li><a href="#">Guía de tallas</a></li>
+                        <li><a href="#">Preguntas frecuentes</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Legal</h5>
+                    <ul>
+                        <li><a href="#">Términos y condiciones</a></li>
+                        <li><a href="#">Política de privacidad</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Síguenos</h5>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 ModaUrbana. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript para el slider y menú responsive -->
+    <script>
+        (function() {
+            // ===== SLIDER =====
+            const slidesContainer = document.getElementById('slides');
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const dotsContainer = document.getElementById('sliderDots');
+            
+            let currentIndex = 0;
+            const totalSlides = slides.length;
+
+            // Crear dots dinámicamente
+            slides.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+
+            const dots = document.querySelectorAll('.dot');
+
+            function updateSlider() {
+                slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+                // Actualizar dots
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            }
+
+            function goToSlide(index) {
+                if (index < 0) {
+                    currentIndex = totalSlides - 1;
+                } else if (index >= totalSlides) {
+                    currentIndex = 0;
+                } else {
+                    currentIndex = index;
+                }
+                updateSlider();
+            }
+
+            function nextSlide() {
+                goToSlide(currentIndex + 1);
+            }
+
+            function prevSlide() {
+                goToSlide(currentIndex - 1);
+            }
+
+            // Event listeners
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+
+            // Auto-avance cada 5 segundos
+            let autoInterval = setInterval(nextSlide, 5000);
+
+            // Reiniciar el temporizador al interactuar
+            const resetAuto = () => {
+                clearInterval(autoInterval);
+                autoInterval = setInterval(nextSlide, 5000);
+            };
+
+            [prevBtn, nextBtn, dotsContainer].forEach(el => {
+                el.addEventListener('click', resetAuto);
+            });
+
+            // Opcional: pausar al pasar el ratón
+            const sliderContainer = document.getElementById('sliderContainer');
+            sliderContainer.addEventListener('mouseenter', () => clearInterval(autoInterval));
+            sliderContainer.addEventListener('mouseleave', () => {
+                autoInterval = setInterval(nextSlide, 5000);
+            });
+
+            // ===== MENÚ RESPONSIVE =====
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Cerrar menú al hacer clic en un enlace (mobile)
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
